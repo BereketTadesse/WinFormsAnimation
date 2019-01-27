@@ -32,7 +32,7 @@ namespace AnimationTester
 			// saY = new SizeAnimator(TimerPanelSize.Interval, 5, 0, TestPanel.Height);
 			laX = new LocationAnimator(-TestPanel.Width, 0);
 			// ca = new ColorAnimator(Pic.BackColor, Color.FromArgb(0xfff));
-			ca = new ColorAnimator(0, Pic.BackColor.B);
+			ca = new ColorAnimator(74, Pic.BackColor.G);
 
 			LabelPicTransparency.Text = "A: " + Pic.BackColor.A.ToString();
 		}
@@ -217,7 +217,7 @@ namespace AnimationTester
 		private void TimerPicColor_Tick(object sender, EventArgs e)
 		{
 			// Pic.BackColor = Color.FromArgb(255, ca.ToggleValue(Pic.BackColor.R), Pic.BackColor.G, Pic.BackColor.B);
-			Pic.BackColor = Color.FromArgb(255, Pic.BackColor.R, Pic.BackColor.G, ca.ToggleValue(Pic.BackColor.B));
+			Pic.BackColor = Color.FromArgb(255, Pic.BackColor.R, ca.ToggleValue(Pic.BackColor.G), Pic.BackColor.B);
 			// Pic.BackColor = ca.Strobe(Pic.BackColor);
 
 			// LabelPicTransparency.Text = "A: " + Pic.BackColor.A.ToString();

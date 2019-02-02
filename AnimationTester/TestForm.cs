@@ -23,6 +23,9 @@ namespace AnimationTester
 		// SizeAnimator saY;
 		LocationAnimator laX;
 
+		SizeAnimator scaleSizeX;
+		SizeAnimator scaleSizeY;
+
 		ColorAnimator ca;
 
 		public TestForm()
@@ -34,7 +37,14 @@ namespace AnimationTester
 			// ca = new ColorAnimator(Pic.BackColor, Color.FromArgb(0xfff));
 			ca = new ColorAnimator(74, Pic.BackColor.G);
 
-			LabelPicTransparency.Text = "A: " + Pic.BackColor.A.ToString();
+
+			scaleSizeX = new SizeAnimator(1, PicToScale.Width, PicToScale.Width + 100, 5);
+			scaleSizeX.reverseChange = true;
+			scaleSizeY = new SizeAnimator(1, PicToScale.Height, PicToScale.Height + 100, 5);
+			scaleSizeY.reverseChange = true;
+
+
+			LabelPicTransparency.Text = "ARGB: " + Pic.BackColor.A.ToString() + ", " + Pic.BackColor.R.ToString() + ", " + Pic.BackColor.G.ToString() + ", " + Pic.BackColor.B.ToString();
 		}
 
 		private void BtnSize_Click(object sender, EventArgs e)
@@ -222,6 +232,8 @@ namespace AnimationTester
 
 			// LabelPicTransparency.Text = "A: " + Pic.BackColor.A.ToString();
 
+			LabelPicTransparency.Text = "ARGB: " + Pic.BackColor.A.ToString() + ", " + Pic.BackColor.R.ToString() + ", " + Pic.BackColor.G.ToString() + ", " + Pic.BackColor.B.ToString();
+
 			if (ca.AnimationComplete)
 				TimerPicColor.Enabled = false;
 		}
@@ -238,6 +250,34 @@ namespace AnimationTester
 			else
 				button5.BackColor = TestPanel.Parent.BackColor;
 
+		}
+
+		private void TimerScale_SizeX_Tick(object sender, EventArgs e)
+		{
+			int prevWidth = PicToScale.Width;
+			PicToScale.Width = scaleSizeX.ToggleDimension(PicToScale.Width);
+
+			PicToScale.Location = new Point(PicToScale.Location.X + ((prevWidth - PicToScale.Width) / 2), PicToScale.Location.Y);
+
+			if (scaleSizeX.AnimationComplete)
+				TimerScale_SizeX.Enabled = false;
+		}
+
+		private void TimerScale_SizeY_Tick(object sender, EventArgs e)
+		{
+			int prevHeight = PicToScale.Height;
+			PicToScale.Height = scaleSizeY.ToggleDimension(PicToScale.Height);
+
+			PicToScale.Location = new Point(PicToScale.Location.X, PicToScale.Location.Y + ((prevHeight - PicToScale.Height) / 2));
+
+			if (scaleSizeY.AnimationComplete)
+				TimerScale_SizeY.Enabled = false;
+		}
+
+		private void button6_Click(object sender, EventArgs e)
+		{
+			TimerScale_SizeX.Enabled = true;
+			TimerScale_SizeY.Enabled = true;
 		}
 	}
 }

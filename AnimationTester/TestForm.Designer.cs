@@ -50,9 +50,14 @@
 			this.LabelPicTransparency = new System.Windows.Forms.Label();
 			this.button5 = new System.Windows.Forms.Button();
 			this.TimerPicColor = new System.Windows.Forms.Timer(this.components);
+			this.PicToScale = new System.Windows.Forms.PictureBox();
+			this.button6 = new System.Windows.Forms.Button();
+			this.TimerScale_SizeX = new System.Windows.Forms.Timer(this.components);
+			this.TimerScale_SizeY = new System.Windows.Forms.Timer(this.components);
 			this.TestPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.Pic.SuspendLayout();
+			((System.ComponentModel.ISupportInitialize)(this.PicToScale)).BeginInit();
 			this.SuspendLayout();
 			// 
 			// TestPanel
@@ -284,14 +289,51 @@
 			this.TimerPicColor.Interval = 1;
 			this.TimerPicColor.Tick += new System.EventHandler(this.TimerPicColor_Tick);
 			// 
+			// PicToScale
+			// 
+			this.PicToScale.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("PicToScale.BackgroundImage")));
+			this.PicToScale.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+			this.PicToScale.Location = new System.Drawing.Point(528, 283);
+			this.PicToScale.Name = "PicToScale";
+			this.PicToScale.Size = new System.Drawing.Size(100, 100);
+			this.PicToScale.TabIndex = 1;
+			this.PicToScale.TabStop = false;
+			// 
+			// button6
+			// 
+			this.button6.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+			this.button6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(85)))), ((int)(((byte)(85)))), ((int)(((byte)(85)))));
+			this.button6.FlatAppearance.BorderSize = 0;
+			this.button6.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+			this.button6.ForeColor = System.Drawing.Color.White;
+			this.button6.Location = new System.Drawing.Point(357, 522);
+			this.button6.Name = "button6";
+			this.button6.Size = new System.Drawing.Size(75, 23);
+			this.button6.TabIndex = 5;
+			this.button6.Text = "Scale Photo";
+			this.button6.UseVisualStyleBackColor = false;
+			this.button6.Click += new System.EventHandler(this.button6_Click);
+			// 
+			// TimerScale_SizeX
+			// 
+			this.TimerScale_SizeX.Interval = 1;
+			this.TimerScale_SizeX.Tick += new System.EventHandler(this.TimerScale_SizeX_Tick);
+			// 
+			// TimerScale_SizeY
+			// 
+			this.TimerScale_SizeY.Interval = 1;
+			this.TimerScale_SizeY.Tick += new System.EventHandler(this.TimerScale_SizeY_Tick);
+			// 
 			// TestForm
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(21)))), ((int)(((byte)(23)))), ((int)(((byte)(24)))));
 			this.ClientSize = new System.Drawing.Size(794, 557);
+			this.Controls.Add(this.PicToScale);
 			this.Controls.Add(this.button5);
 			this.Controls.Add(this.LabelPicTransparency);
+			this.Controls.Add(this.button6);
 			this.Controls.Add(this.ButtonTransparencyToggle);
 			this.Controls.Add(this.LabelPicLocation);
 			this.Controls.Add(this.Pic);
@@ -310,6 +352,7 @@
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
 			this.Pic.ResumeLayout(false);
 			this.Pic.PerformLayout();
+			((System.ComponentModel.ISupportInitialize)(this.PicToScale)).EndInit();
 			this.ResumeLayout(false);
 			this.PerformLayout();
 
@@ -337,6 +380,10 @@
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Button button5;
 		private System.Windows.Forms.Timer TimerPicColor;
+		private System.Windows.Forms.PictureBox PicToScale;
+		private System.Windows.Forms.Button button6;
+		private System.Windows.Forms.Timer TimerScale_SizeX;
+		private System.Windows.Forms.Timer TimerScale_SizeY;
 	}
 }
 

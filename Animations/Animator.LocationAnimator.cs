@@ -61,7 +61,7 @@ namespace Animations
 		{
 			Point value = current;
 
-			if (reverseChange)
+			if (ReverseAnimationDirection)
 				direction = FlipToggleDirection(direction);
 
 			if (direction == Directions.Up || direction == Directions.Down)
@@ -70,7 +70,7 @@ namespace Animations
 				value = ToggleX(current, direction);
 
 			if (AnimationComplete)
-				reverseChange = !reverseChange;
+				ReverseAnimationDirection = !ReverseAnimationDirection;
 
 			return value;
 		}
@@ -94,7 +94,7 @@ namespace Animations
 		// Generates point for horizontal toggle movement
 		private Point ToggleX(Point current, Directions direction)
 		{
-			if (reverseChange)
+			if (ReverseAnimationDirection)
 				return new Point(UpdateLocationValue(current.X, LocationTargetB, direction), current.Y);
 			else
 				return new Point(UpdateLocationValue(current.X, LocationTargetA, direction), current.Y);
@@ -102,7 +102,7 @@ namespace Animations
 		// Generates point for vertical toggle movement
 		private Point ToggleY(Point current, Directions direction)
 		{
-			if (reverseChange)
+			if (ReverseAnimationDirection)
 				return new Point(current.X, UpdateLocationValue(current.Y, LocationTargetB, direction));
 			else
 				return new Point(current.X, UpdateLocationValue(current.Y, LocationTargetA, direction));

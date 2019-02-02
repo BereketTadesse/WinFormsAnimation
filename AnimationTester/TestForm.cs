@@ -26,22 +26,26 @@ namespace AnimationTester
 		SizeAnimator scaleSizeX;
 		SizeAnimator scaleSizeY;
 
-		ColorAnimator ca;
+		ColorAnimator caR;
+		ColorAnimator caG;
+		ColorAnimator caB;
 
 		public TestForm()
 		{
 			InitializeComponent();
-			saX = new SizeAnimator(0, TestPanel.Width);
+			saX = new SizeAnimator(TestPanel.Width, 0);
 			// saY = new SizeAnimator(TimerPanelSize.Interval, 5, 0, TestPanel.Height);
 			laX = new LocationAnimator(-TestPanel.Width, 0);
 			// ca = new ColorAnimator(Pic.BackColor, Color.FromArgb(0xfff));
-			ca = new ColorAnimator(74, Pic.BackColor.G);
+			caR = new ColorAnimator(Pic.BackColor.R, 26);
+			caG = new ColorAnimator(Pic.BackColor.G, 74);
+			caB = new ColorAnimator(Pic.BackColor.B, 85);
+			
 
 
-			scaleSizeX = new SizeAnimator(1, PicToScale.Width, PicToScale.Width + 100, 5);
-			scaleSizeX.reverseChange = true;
-			scaleSizeY = new SizeAnimator(1, PicToScale.Height, PicToScale.Height + 100, 5);
-			scaleSizeY.reverseChange = true;
+
+			scaleSizeX = new SizeAnimator(PicToScale.Width, PicToScale.Width + 100, 1, 3);
+			scaleSizeY = new SizeAnimator(PicToScale.Height, PicToScale.Height + 100, 1, 3);
 
 
 			LabelPicTransparency.Text = "ARGB: " + Pic.BackColor.A.ToString() + ", " + Pic.BackColor.R.ToString() + ", " + Pic.BackColor.G.ToString() + ", " + Pic.BackColor.B.ToString();
@@ -54,7 +58,7 @@ namespace AnimationTester
 
 		private void TimerPanelSize_Tick(object sender, EventArgs e)
 		{
-			TestPanel.Width = saX.ToggleDimension(TestPanel.Width);
+			TestPanel.Width = saX.ToggleDimension();
 
 			if (saX.AnimationComplete)
 				TimerPanelSize.Enabled = false;
@@ -214,7 +218,9 @@ namespace AnimationTester
 
 		private void ButtonTransparencyToggle_Click(object sender, EventArgs e)
 		{
-			TimerPicColor.Enabled = true;
+			TimerPicColorR.Enabled = true;
+			TimerPicColorG.Enabled = true;
+			TimerPicColorB.Enabled = true;
 			/*
 			if (Pic.BackColor.A == 0)
 				Pic.BackColor = Color.FromArgb(255, Pic.BackColor);
@@ -227,15 +233,15 @@ namespace AnimationTester
 		private void TimerPicColor_Tick(object sender, EventArgs e)
 		{
 			// Pic.BackColor = Color.FromArgb(255, ca.ToggleValue(Pic.BackColor.R), Pic.BackColor.G, Pic.BackColor.B);
-			Pic.BackColor = Color.FromArgb(255, Pic.BackColor.R, ca.ToggleValue(Pic.BackColor.G), Pic.BackColor.B);
+			Pic.BackColor = Color.FromArgb(255, Pic.BackColor.R, caG.ToggleValue(), Pic.BackColor.B);
 			// Pic.BackColor = ca.Strobe(Pic.BackColor);
 
 			// LabelPicTransparency.Text = "A: " + Pic.BackColor.A.ToString();
 
 			LabelPicTransparency.Text = "ARGB: " + Pic.BackColor.A.ToString() + ", " + Pic.BackColor.R.ToString() + ", " + Pic.BackColor.G.ToString() + ", " + Pic.BackColor.B.ToString();
 
-			if (ca.AnimationComplete)
-				TimerPicColor.Enabled = false;
+			if (caG.AnimationComplete)
+				TimerPicColorG.Enabled = false;
 		}
 
 		private void TimerPanelLocation_Tick(object sender, EventArgs e)
@@ -255,7 +261,7 @@ namespace AnimationTester
 		private void TimerScale_SizeX_Tick(object sender, EventArgs e)
 		{
 			int prevWidth = PicToScale.Width;
-			PicToScale.Width = scaleSizeX.ToggleDimension(PicToScale.Width);
+			PicToScale.Width = scaleSizeX.ToggleDimension();
 
 			PicToScale.Location = new Point(PicToScale.Location.X + ((prevWidth - PicToScale.Width) / 2), PicToScale.Location.Y);
 
@@ -266,7 +272,7 @@ namespace AnimationTester
 		private void TimerScale_SizeY_Tick(object sender, EventArgs e)
 		{
 			int prevHeight = PicToScale.Height;
-			PicToScale.Height = scaleSizeY.ToggleDimension(PicToScale.Height);
+			PicToScale.Height = scaleSizeY.ToggleDimension();
 
 			PicToScale.Location = new Point(PicToScale.Location.X, PicToScale.Location.Y + ((prevHeight - PicToScale.Height) / 2));
 
@@ -278,6 +284,37 @@ namespace AnimationTester
 		{
 			TimerScale_SizeX.Enabled = true;
 			TimerScale_SizeY.Enabled = true;
+		}
+
+		private void TimerPicColorB_Tick(object sender, EventArgs e)
+		{
+			// Pic.BackColor = Color.FromArgb(255, ca.ToggleValue(Pic.BackColor.R), Pic.BackColor.G, Pic.BackColor.B);
+			Pic.BackColor = Color.FromArgb(255, Pic.BackColor.R, Pic.BackColor.G, caB.ToggleValue());
+			// Pic.BackColor = ca.Strobe(Pic.BackColor);
+
+			// LabelPicTransparency.Text = "A: " + Pic.BackColor.A.ToString();
+
+			LabelPicTransparency.Text = "ARGB: " + Pic.BackColor.A.ToString() + ", " + Pic.BackColor.R.ToString() + ", " + Pic.BackColor.G.ToString() + ", " + Pic.BackColor.B.ToString();
+
+			if (caB.AnimationComplete)
+				TimerPicColorB.Enabled = false;
+
+		}
+
+		private void TimerPicColorR_Tick(object sender, EventArgs e)
+		{
+			// Pic.BackColor = Color.FromArgb(255, ca.ToggleValue(Pic.BackColor.R), Pic.BackColor.G, Pic.BackColor.B);
+			Pic.BackColor = Color.FromArgb(255, caR.ToggleValue(), Pic.BackColor.G, Pic.BackColor.B);
+			// Pic.BackColor = ca.Strobe(Pic.BackColor);
+
+			// LabelPicTransparency.Text = "A: " + Pic.BackColor.A.ToString();
+
+			LabelPicTransparency.Text = "ARGB: " + Pic.BackColor.A.ToString() + ", " + Pic.BackColor.R.ToString() + ", " + Pic.BackColor.G.ToString() + ", " + Pic.BackColor.B.ToString();
+
+			if (caR.AnimationComplete)
+				TimerPicColorR.Enabled = false;
+
+
 		}
 	}
 }

@@ -9,19 +9,30 @@ namespace Animations
 	public class SizeAnimator : Animator
 	{
 		#region Constructors
-
-		public SizeAnimator(int minSize, int maxSize) : this(1, minSize, maxSize)  { }
-
-		public SizeAnimator(int interval, int minSize, int maxSize, int multiplier = 7) : base(interval, multiplier)
+		/// <summary>
+		///  Initializes an object that periodically calculates size values to animate between the currentSize and the targetSize
+		/// </summary>
+		/// <param name="currentSize">Current size the object (width or height)</param>
+		/// <param name="targetSize">Initial target size of the object (width or height)</param>
+		/// <param name="interval">Number of miliseconds between ticks of the animation timer (must be declared separately)</param>
+		/// <param name="multiplier">Value that multiplies the interval to slow down or speed up animations</param>
+		
+		public SizeAnimator(int currentSize, int targetSize, int interval = 1, int multiplier = 7)
 		{
-			SizeTargetA = minSize;
-			SizeTargetB = maxSize;
+			SizeTargetA = Math.Min(currentSize, targetSize);
+			SizeTargetB = Math.Max(currentSize, targetSize);
+			CurrentSize = currentSize;
+
+			if (currentSize < targetSize)
+				ReverseAnimationDirection = true;
 		}
+
 		#endregion
 
 		#region Field members
 		public int SizeTargetA { get; private set; } // Lower bound
 		public int SizeTargetB { get; private set; } // Upper bound
+		public int CurrentSize { get; private set; } // Current size of object
 		#endregion
 
 		#region Size update methods
@@ -41,22 +52,22 @@ namespace Animations
 		#endregion
 
 		#region Toggle methods
-		public int ToggleDimension(int current)
+		public int ToggleDimension()
 		{
-			int value = current;
-			if (current > SizeTargetA && !reverseChange)
-				value = UpdateDimension(current, SizeTargetA);
-			else if (current < SizeTargetB)
-				value = UpdateDimension(current, SizeTargetB);
+			// int value = CurrentSize;
+			if (CurrentSize > SizeTargetA && !ReverseAnimationDirection)
+				CurrentSize = UpdateDimension(CurrentSize, SizeTargetA);
+			else if (CurrentSize < SizeTargetB)
+				CurrentSize = UpdateDimension(CurrentSize, SizeTargetB);
 			else
 				AnimationComplete = false;
 				
-			if (value == SizeTargetA)
-				reverseChange = true;
-			else if (current == SizeTargetB)
-				reverseChange = false;
+			if (CurrentSize == SizeTargetA)
+				ReverseAnimationDirection = true;
+			else if (CurrentSize == SizeTargetB)
+				ReverseAnimationDirection = false;
 
-			return value;
+			return CurrentSize;
 		}
 		#endregion
 	}

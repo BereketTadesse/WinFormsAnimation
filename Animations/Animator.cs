@@ -9,29 +9,31 @@ namespace Animations
 	public abstract partial class Animator
 	{
 		#region Constructors
-
-		protected Animator(int interval = 1)
+		protected Animator(int interval = DEFAULT_INTERVAL)
 		{
 			Interval = interval;
-			Multiplier = 5;
+			Multiplier = DEFAULT_MULTIPLIER;
 		}
 
 		protected Animator(int interval, int multiplier) : this(interval)
 		{
 			Multiplier = multiplier;
 		}
-
 		#endregion
 
 		#region Field members
+		public const int DEFAULT_INTERVAL = 1;
+		public const int DEFAULT_MULTIPLIER = 5;
+		public const int DEFAULT_MINIMUM_CHANGE = 4;
+
 		public int Interval { get; set; }     // ms between timer ticks. Used to calculate change per interval
-		public int Multiplier { get; set; } = 5;   // Increases the time taken to complete animation. Multiplies interval in order to decrease change per interval. Smoother
-		public int MinimumChangePerTick { get; set; } = 4; // Prevents freezing when calculated change in value is 0
+		public int Multiplier { get; set; }   // Increases the time taken to complete animation. Multiplies interval in order to decrease change per interval. Smoother
+		public int MinimumChangePerTick { get; set; } = DEFAULT_MINIMUM_CHANGE; // Prevents freezing when calculated change is 0
 
 		public bool AnimationComplete { get; set; } // Used as output variable to confirm the lower or upper bound has been reached
 		protected int ChangeByAmmount; // Ammount to increment or decrement values by at every interval. Recalculated per tick to avoid choppy animation
 
-		public bool reverseChange = false; // Reverses direction of animation if true. (Default: true = increase, false = decrease
+		public bool ReverseAnimationDirection = false; // Reverses direction of animation if true. (Default: true = increase, false = decrease
 		#endregion
 
 		#region Change per tick methods

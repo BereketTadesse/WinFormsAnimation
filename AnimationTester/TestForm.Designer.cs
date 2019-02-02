@@ -49,11 +49,13 @@
 			this.ButtonTransparencyToggle = new System.Windows.Forms.Button();
 			this.LabelPicTransparency = new System.Windows.Forms.Label();
 			this.button5 = new System.Windows.Forms.Button();
-			this.TimerPicColor = new System.Windows.Forms.Timer(this.components);
+			this.TimerPicColorG = new System.Windows.Forms.Timer(this.components);
 			this.PicToScale = new System.Windows.Forms.PictureBox();
 			this.button6 = new System.Windows.Forms.Button();
 			this.TimerScale_SizeX = new System.Windows.Forms.Timer(this.components);
 			this.TimerScale_SizeY = new System.Windows.Forms.Timer(this.components);
+			this.TimerPicColorR = new System.Windows.Forms.Timer(this.components);
+			this.TimerPicColorB = new System.Windows.Forms.Timer(this.components);
 			this.TestPanel.SuspendLayout();
 			((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
 			this.Pic.SuspendLayout();
@@ -284,10 +286,10 @@
 			this.button5.UseVisualStyleBackColor = false;
 			this.button5.Click += new System.EventHandler(this.BtnMove_Click);
 			// 
-			// TimerPicColor
+			// TimerPicColorG
 			// 
-			this.TimerPicColor.Interval = 1;
-			this.TimerPicColor.Tick += new System.EventHandler(this.TimerPicColor_Tick);
+			this.TimerPicColorG.Interval = 1;
+			this.TimerPicColorG.Tick += new System.EventHandler(this.TimerPicColor_Tick);
 			// 
 			// PicToScale
 			// 
@@ -323,6 +325,16 @@
 			// 
 			this.TimerScale_SizeY.Interval = 1;
 			this.TimerScale_SizeY.Tick += new System.EventHandler(this.TimerScale_SizeY_Tick);
+			// 
+			// TimerPicColorR
+			// 
+			this.TimerPicColorR.Interval = 1;
+			this.TimerPicColorR.Tick += new System.EventHandler(this.TimerPicColorR_Tick);
+			// 
+			// TimerPicColorB
+			// 
+			this.TimerPicColorB.Interval = 1;
+			this.TimerPicColorB.Tick += new System.EventHandler(this.TimerPicColorB_Tick);
 			// 
 			// TestForm
 			// 
@@ -379,11 +391,13 @@
 		private System.Windows.Forms.Button button3;
 		private System.Windows.Forms.PictureBox pictureBox1;
 		private System.Windows.Forms.Button button5;
-		private System.Windows.Forms.Timer TimerPicColor;
+		private System.Windows.Forms.Timer TimerPicColorG;
 		private System.Windows.Forms.PictureBox PicToScale;
 		private System.Windows.Forms.Button button6;
 		private System.Windows.Forms.Timer TimerScale_SizeX;
 		private System.Windows.Forms.Timer TimerScale_SizeY;
+		private System.Windows.Forms.Timer TimerPicColorR;
+		private System.Windows.Forms.Timer TimerPicColorB;
 	}
 }
 
